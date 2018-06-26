@@ -19,8 +19,8 @@ LOGGER = singer.get_logger()  # noqa
 def do_discover(args):
     LOGGER.info("Starting discovery.")
 
-    config = load_config(args.config)
-    state = load_state(args.state)
+    config = args.config
+    state = args.state
 
     catalog = []
 
@@ -54,9 +54,9 @@ def get_streams_to_replicate(config, state, catalog, client):
 def do_sync(args):
     LOGGER.info("Starting sync.")
 
-    config = load_config(args.config)
-    state = load_state(args.state)
-    catalog = load_catalog(args.properties)
+    config = args.config
+    state = args.state
+    catalog = args.properties
     client = LivepersonClient(config)
 
     streams = get_streams_to_replicate(config, state, catalog, client)
