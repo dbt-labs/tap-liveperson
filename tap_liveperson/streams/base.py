@@ -64,7 +64,10 @@ class BaseStream:
         if date is None:
             return date
 
-        return dateutil.parser.parse(date).isoformat('T')
+        try:
+            return dateutil.parser.parse(date).isoformat('T')
+        except ValueError:
+            return date
 
     def filter_keys(self, obj):
         obj['id'] = self.get_pk_value(obj)
