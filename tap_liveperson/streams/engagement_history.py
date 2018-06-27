@@ -36,6 +36,10 @@ class EngagementHistoryStream(BaseStream):
         ]
 
         for path in paths:
-            obj = funcy.update_in(obj, path, self.convert_date)
+            if isinstance(obj.get(path[0]), list):
+                obj[path[0]] = [funcy.update_in(item, path[1:], self.convert_date)
+                                for item in obj.get(path[0])]
+            else:
+                obj = funcy.update_in(obj, path, self.convert_date)
 
         return obj
