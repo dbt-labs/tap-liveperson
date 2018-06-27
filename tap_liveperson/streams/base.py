@@ -67,7 +67,8 @@ class BaseStream:
         try:
             return dateutil.parser.parse(date).isoformat('T')
         except ValueError:
-            return date
+            LOGGER.warn('Got invalid date {}'.format(date))
+            return None
 
     def filter_keys(self, obj):
         obj['id'] = self.get_pk_value(obj)
