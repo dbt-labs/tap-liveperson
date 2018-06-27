@@ -1,5 +1,7 @@
 from tap_liveperson.streams.base import BaseStream
 
+import funcy
+
 
 class MessagingInteractionsStream(BaseStream):
     API_METHOD = 'POST'

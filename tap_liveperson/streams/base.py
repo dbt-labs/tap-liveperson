@@ -1,3 +1,4 @@
+import dateutil.parser
 import math
 import pytz
 import singer
