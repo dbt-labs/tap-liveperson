@@ -60,14 +60,14 @@ class BaseStream:
 
     def convert_date(self, date):
         # dates come in like "2018-02-22 20:38:49.628+0000"
-        return dateutil.parser.parser(date).isoformat('T')
+        if date is None:
+            return date
 
-    def convert_date_fields(self, obj):
-        return obj
+        return dateutil.parser.parser(date).isoformat('T')
 
     def filter_keys(self, obj):
         obj['id'] = self.get_pk_value(obj)
-        return project(obj, self.get_catalog_keys())
+        return self.convert_dates(project(obj, self.get_catalog_keys()))
 
     def write_schema(self):
         singer.write_schema(
