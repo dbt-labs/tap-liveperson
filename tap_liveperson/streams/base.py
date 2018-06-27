@@ -58,6 +58,13 @@ class BaseStream:
         raise NotImplementedError(
             '`get_pk_value` is not implemented for this stream!')
 
+    def convert_date(self, date):
+        # dates come in like "2018-02-22 20:38:49.628+0000"
+        return dateutil.parser.parser(date).isoformat('T')
+
+    def convert_date_fields(self, obj):
+        return obj
+
     def filter_keys(self, obj):
         obj['id'] = self.get_pk_value(obj)
         return project(obj, self.get_catalog_keys())
@@ -143,8 +150,6 @@ class BaseStream:
                 url, self.API_METHOD, params=params, body=body)
 
             count = result.get('_metadata', {}).get('count')
-
-            LOGGER.info(count == 0)
 
             total_pages = math.ceil(count / params['limit'])
             data = self.get_stream_data(result)

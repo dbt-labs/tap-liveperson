@@ -17,3 +17,23 @@ class MessagingInteractionsStream(BaseStream):
 
     def get_pk_value(self, obj):
         return obj.get('info').get('conversationId')
+
+    def convert_dates(self, obj):
+        paths = [
+            ('info', 'startTime',),
+            ('info', 'endTime',),
+            ('messageRecords', 'time',),
+            ('agentParticipants', 'time',),
+            ('consumerParticipant', 'time',),
+            ('transfers', 'time',),
+            ('interactions', 'interactionTime',),
+            ('messageScore', 'time',),
+            ('messageStatuses', 'time'),
+            ('coBrowseSessions', 'startTime',),
+            ('coBrowseSessions', 'endTime',),
+        ]
+
+        for path in paths:
+            obj = funcy.update_in(obj, path, self.convert_date)
+
+        return obj
