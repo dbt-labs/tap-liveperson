@@ -24,8 +24,6 @@ class LivepersonClient:
         auth = self.get_authorization()
 
         LOGGER.info("Making {} request to {}".format(method, url))
-        LOGGER.info(params)
-        LOGGER.info(body)
 
         response = requests.request(
             method,
