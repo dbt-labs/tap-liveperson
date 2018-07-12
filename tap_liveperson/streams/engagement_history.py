@@ -33,6 +33,8 @@ class EngagementHistoryStream(BaseStream):
             ('messageStatuses', 'time'),
             ('coBrowseSessions', 'startTime',),
             ('coBrowseSessions', 'endTime',),
+            ('surveys', 'preChat', 'time',),
+            ('surveys', 'postChat', 'time',),
         ]
 
         for path in paths:
