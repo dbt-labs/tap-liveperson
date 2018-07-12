@@ -100,6 +100,95 @@
         }
       }
     },
+    "surveys": {
+      "type": "object",
+      "properties": {
+        "preChat": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": ["null", "string"]
+              },
+              "source": {
+                "type": ["null", "string"]
+              },
+              "displayName": {
+                "type": ["null", "string"]
+              },
+              "value": {
+                "type": ["null", "string"]
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": ["null", "string"]
+                }
+              },
+              "name": {
+                "type": ["null", "string"]
+              },
+              "time": {
+                "type": ["null", "string"],
+                "format": "date-time"
+              },
+              "timeL": {
+                "type": ["null", "number"]
+              },
+              "questionID": {
+                "type": ["null", "number"]
+              },
+              "surveyID": {
+                "type": ["null", "number"]
+              }
+            }
+          }
+        },
+        "postChat": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "scope": {
+                "type": ["null", "string"]
+              },
+              "source": {
+                "type": ["null", "string"]
+              },
+              "displayName": {
+                "type": ["null", "string"]
+              },
+              "value": {
+                "type": ["null", "string"]
+              },
+              "values": {
+                "type": "array",
+                "items": {
+                  "type": ["null", "string"]
+                }
+              },
+              "name": {
+                "type": ["null", "string"]
+              },
+              "time": {
+                "type": ["null", "string"],
+                "format": "date-time"
+              },
+              "timeL": {
+                "type": ["null", "number"]
+              },
+              "questionID": {
+                "type": ["null", "number"]
+              },
+              "surveyID": {
+                "type": ["null", "number"]
+              }
+            }
+          }
+        }
+      }
+    },
     "campaign": {
       "type": "object",
       "properties": {
