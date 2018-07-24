@@ -1,6 +1,9 @@
 from tap_liveperson.streams.base import BaseStream
 
 import funcy
+import singer
+
+LOGGER = singer.get_logger()  # noqa
 
 
 class EngagementHistoryStream(BaseStream):
@@ -24,25 +27,26 @@ class EngagementHistoryStream(BaseStream):
         paths = [
             ('info', 'startTime',),
             ('info', 'endTime',),
-            ('messageRecords', 'time',),
-            ('agentParticipants', 'time',),
-            ('consumerParticipant', 'time',),
-            ('transfers', 'time',),
-            ('interactions', 'interactionTime',),
-            ('messageScore', 'time',),
-            ('messageStatuses', 'time'),
             ('coBrowseSessions', 'startTime',),
             ('coBrowseSessions', 'endTime',),
             ('surveys', 'preChat', 'time',),
             ('surveys', 'postChat', 'time',),
+            ('transcript', 'lines', 'time',),
         ]
 
         for path in paths:
-            if isinstance(obj.get(path[0]), list):
-                obj[path[0]] = [funcy.update_in(item, path[1:],
-                                                self.convert_date)
-                                for item in obj.get(path[0])]
-            elif obj.get(path[0]) is not None:
+            last = path[-1]
+            rest = path[:-1]
+            items = funcy.get_in(obj, rest)
+
+            if isinstance(items, list) and items:
+                updated_items = [
+                    funcy.update_in(item, [last], self.convert_date)
+                    for item in items
+                ]
+                obj = funcy.set_in(obj, rest, updated_items)
+
+            elif funcy.get_in(obj, path) is not None:
                 obj = funcy.update_in(obj, path, self.convert_date)
 
         return obj
