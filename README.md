@@ -8,8 +8,8 @@ It:
 
 - Generates a catalog of available data in Liveperson
 - Extracts the following resources:
-  - [Engagement History](https://developers.liveperson.com/data-engagement-history-overview.html) ([source](../blob/master/streams/engagement_history.py))
-  - [Messaging Interactions](https://developers.liveperson.com/data-messaging-interactions-overview.html) ([source](../blob/master/streams/messaging_interactions.py))
+  - [Engagement History](https://developers.liveperson.com/data-engagement-history-overview.html) ([source](../../blob/master/tap_liveperson/streams/engagement_history.py))
+  - [Messaging Interactions](https://developers.liveperson.com/data-messaging-interactions-overview.html) ([source](../../blob/master/tap_liveperson/streams/messaging_interactions.py))
 
 ### Quick Start
 
