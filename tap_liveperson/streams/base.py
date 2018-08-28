@@ -27,15 +27,6 @@ class BaseStream(base):
     def get_domain(self):
         return self.client.get_service_domain(self.SERVICE_NAME)
 
-    def sync(self):
-        LOGGER.info('Syncing stream {} with {}'
-                    .format(self.catalog.get('tap_stream_id'),
-                            self.__class__.__name__))
-
-        self.write_schema()
-
-        return self.sync_data()
-
     def sync_data(self):
         table = self.TABLE
 
