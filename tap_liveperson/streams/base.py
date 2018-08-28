@@ -1,4 +1,3 @@
-import dateutil.parser
 import math
 import pytz
 import singer
@@ -6,78 +5,24 @@ import singer.utils
 import singer.metrics
 
 from datetime import timedelta, datetime
-from funcy import project
+
 from tap_liveperson.config import get_config_start_date
-from tap_liveperson.schemas import load_schema_by_name
 from tap_liveperson.state import incorporate, save_state, \
     get_last_record_value_for_table
+
+from tap_framework.streams import BaseStream as base
 
 LOGGER = singer.get_logger()
 
 
-class BaseStream:
-
-    # ABSTRACT PROPERTIES -- SHOULD BE OVERRIDDEN
-    TABLE = None
-
-    def get_schema(self):
-        return load_schema_by_name(self.TABLE)
-
-    def get_stream_data(self, result):
-        """
-        Given a result set from Liveperson, return the data
-        to be persisted for this stream.
-        """
-        raise RuntimeError("get_stream_data not implemented!")
+class BaseStream(base):
 
     # GLOBAL PROPERTIES -- DON'T OVERRIDE
     KEY_PROPERTIES = ['id']
 
-    def __init__(self, config, state, catalog, client):
-        self.config = config
-        self.state = state
-        self.catalog = catalog
-        self.client = client
-
-    @classmethod
-    def matches_catalog(cls, catalog):
-        return catalog.get('stream') == cls.TABLE
-
-    def generate_catalog(self):
-        return [{
-            'tap_stream_id': self.TABLE,
-            'stream': self.TABLE,
-            'key_properties': self.KEY_PROPERTIES,
-            'schema': self.get_schema()
-        }]
-
-    def get_catalog_keys(self):
-        return list(
-            self.catalog.get('schema', {}).get('properties', {}).keys())
-
     def get_pk_value(self):
         raise NotImplementedError(
             '`get_pk_value` is not implemented for this stream!')
-
-    def convert_date(self, date):
-        # dates come in like "2018-02-22 20:38:49.628+0000"
-        if date is None:
-            return date
-
-        try:
-            return dateutil.parser.parse(date).isoformat('T')
-        except ValueError:
-            return None
-
-    def filter_keys(self, obj):
-        obj['id'] = self.get_pk_value(obj)
-        return self.convert_dates(project(obj, self.get_catalog_keys()))
-
-    def write_schema(self):
-        singer.write_schema(
-            self.catalog.get('stream'),
-            self.catalog.get('schema'),
-            key_properties=self.catalog.get('key_properties'))
 
     def get_domain(self):
         return self.client.get_service_domain(self.SERVICE_NAME)
@@ -162,7 +107,7 @@ class BaseStream:
                 for obj in data:
                     singer.write_records(
                         table,
-                        [self.filter_keys(obj)])
+                        [obj])
 
                     counter.increment()
 

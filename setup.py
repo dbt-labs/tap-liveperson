@@ -11,11 +11,7 @@ setup(name='tap-liveperson',
       classifiers=['Programming Language :: Python :: 3 :: Only'],
       py_modules=['tap_liveperson'],
       install_requires=[
-          'singer-python==5.0.12',
-          'backoff==1.3.2',
-          'requests==2.18.4',
-          'requests-oauthlib==0.8.0',
-          'funcy==1.10.1',
+          'tap-framework==0.0.4',
       ],
       entry_points='''
           [console_scripts]
