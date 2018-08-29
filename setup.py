@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 from setuptools import setup, find_packages
-import os.path
 
 setup(name='tap-liveperson',
       version='0.0.1',
@@ -17,4 +16,9 @@ setup(name='tap-liveperson',
           [console_scripts]
           tap-liveperson=tap_liveperson:main
       ''',
-      packages=['tap_liveperson'])
+      packages=find_packages(),
+      package_data={
+          'tap_liveperson': [
+              'schemas/*.json'
+          ]
+      })
