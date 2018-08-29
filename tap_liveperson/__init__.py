@@ -18,7 +18,8 @@ class LivepersonRunner(tap_framework.Runner):
 def main():
     args = singer.utils.parse_args(
         required_config_keys=['app_key', 'app_secret',
-                              'access_token', 'access_token_secret'])
+                              'access_token', 'access_token_secret',
+                              'account_id'])
 
     client = LivepersonClient(args.config)
 
