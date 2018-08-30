@@ -1,7 +1,5 @@
 {
   "type": "object",
-  "inclusion": "available",
-  "selected-by-default": false,
   "properties": {
     "id": {
       "type": "string"
@@ -9,6 +7,193 @@
     "info": {
       "type": "object",
       "properties": {
+        "accountId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "agentFullName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "agentGroupId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "agentGroupName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "agentId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "agentLoginName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "agentNickName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "channel": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "chatDataEnriched": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "chatRequestedTime": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "date-time"
+        },
+        "chatRequestedTimeL": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
+        "chatStartPage": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "chatStartUrl": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "endReason": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "endReasonDesc": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "ended": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "engagementId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "engagementSequence": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "engagementSet": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "interactive": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "isAgentSurvey": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "isInteractive": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "isPostChatSurvey": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "isPreChatSurvey": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "sharkEngagementId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "skillId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "skillName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "startReason": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "startReasonDesc": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "visitorId": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "visitorName": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
         "startTime": {
           "type": ["null", "string"],
           "format": "date-time"
@@ -109,6 +294,9 @@
           "items": {
             "type": "object",
             "properties": {
+              "agentId": {
+                "type": ["null", "string"]
+              },
               "time": {
                 "type": ["null", "string"],
                 "format": "date-time"
@@ -432,6 +620,12 @@
                 "type": ["null", "string"]
               },
               "serverTimeStamp": {
+                "type": ["null", "string"]
+              },
+              "cartStatus": {
+                "type": ["null", "string"]
+              },
+              "isAuthenticated": {
                 "type": ["null", "string"]
               }
             }
