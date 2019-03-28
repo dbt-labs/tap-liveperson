@@ -122,3 +122,37 @@ class BaseStream(base):
                                  date.isoformat())
 
         save_state(self.state)
+
+class BaseEntityStream(BaseStream):
+    def get_params(self):
+        return {}
+
+    def get_body(self):
+        return {}
+
+    def sync_data(self):
+        table = self.TABLE
+        LOGGER.info('Syncing data for entity {}'.format(table))
+
+        domain = self.get_domain()
+
+        url = (
+            'https://{domain}{api_path}'.format(
+                domain=domain,
+                api_path=self.api_path))
+
+        params = self.get_params()
+        body = self.get_body()
+
+        result = self.client.make_request(
+            url, self.API_METHOD, params=params, body=body)
+        data = self.get_stream_data(result)
+
+        with singer.metrics.record_counter(endpoint=table) as counter:
+            for obj in data:
+                singer.write_records(
+                    table,
+                    [obj])
+
+                counter.increment()
+        return self.state
