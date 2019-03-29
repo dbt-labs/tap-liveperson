@@ -10,6 +10,7 @@ from tap_liveperson.config import get_config_start_date
 from tap_liveperson.state import incorporate, save_state, \
     get_last_record_value_for_table
 
+from tap_liveperson.unzip import unzip
 from tap_framework.streams import BaseStream as base
 
 LOGGER = singer.get_logger()
@@ -156,3 +157,100 @@ class BaseEntityStream(BaseStream):
 
                 counter.increment()
         return self.state
+
+class BaseFileStream(BaseStream):
+
+    def sync_data(self):
+        table = self.TABLE
+
+        date = get_last_record_value_for_table(self.state, table)
+
+        if date is None:
+            date = get_config_start_date(self.config)
+
+        interval = timedelta(days=7)
+
+        while date < datetime.now(pytz.utc):
+            self.sync_data_for_period(date, interval)
+
+            date = date + interval
+
+        return self.state
+
+    def get_filters(self, start, end):
+        return {
+            'startTime': int(start.timestamp() * 1000),
+            'endTime': int(end.timestamp() * 1000)
+        }
+
+    def get_body(self):
+        return {}
+
+    def sync_data_for_period(self, date, interval):
+        table = self.TABLE
+        domain = self.get_domain()
+
+        updated_after = date
+        updated_before = updated_after + interval
+
+        LOGGER.info(
+            'Syncing data from {} to {}'.format(
+                updated_after.isoformat(),
+                updated_before.isoformat()))
+
+        has_data = True
+        page = 1
+        offset = 0
+        total_pages = -1
+
+        url = (
+            'https://{domain}{api_path}'.format(
+                domain=domain,
+                api_path=self.api_path))
+
+        params = self.get_filters(updated_after, updated_before)
+        body = self.get_body()
+
+        try:
+            result = self.client.make_request(
+                url, self.API_METHOD, params=params, body=body)
+
+        except RuntimeError as e:
+            if hasattr(e, 'args') and len(e.args) > 0:
+                if 'No Available Files' in e.args[0]:
+                    LOGGER.info("No data available for {}-{}".format(updated_after, updated_before))
+                    return
+                else:
+                    raise
+            else:
+                raise
+
+        if 'dataAccessFiles' not in result:
+            raise RuntimeError("Expected to see 'dataAccessFiles', but did not see it")
+
+        files = result['dataAccessFiles']
+        for file_dict in files['file']:
+            name = file_dict['@name']
+            start = file_dict['@scopeStartDate']
+            end = file_dict['@scopeEndDate']
+            href = file_dict['@href']
+            file_results = unzip(self.client.download(href).content)
+
+        data = self.get_stream_data(file_results)
+
+        with singer.metrics.record_counter(endpoint=table) as counter:
+            for obj in data:
+                singer.write_records(
+                    table,
+                    [obj])
+
+                counter.increment()
+
+        LOGGER.info('Synced {} for {}'.format(updated_after, self.TABLE))
+
+        self.state = incorporate(self.state,
+                                 table,
+                                 'updated_at',
+                                 date.isoformat())
+
+        save_state(self.state)

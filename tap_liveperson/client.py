@@ -23,7 +23,7 @@ class LivepersonClient:
     def make_request(self, url, method, params=None, body=None):
         auth = self.get_authorization()
 
-        LOGGER.info("Making {} request to {}".format(method, url))
+        LOGGER.info("Making {} request to {} ({})".format(method, url, params))
 
         response = requests.request(
             method,
@@ -39,6 +39,21 @@ class LivepersonClient:
             raise RuntimeError(response.text)
 
         return response.json()
+
+    def download(self, url):
+        auth = self.get_authorization()
+
+        LOGGER.info("Making GET request to {}".format(url))
+
+        response = requests.request(
+            'GET',
+            url,
+            auth=auth)
+
+        if response.status_code != 200:
+            raise RuntimeError(response.text)
+
+        return response
 
     def get_service_domain(self, service_name):
         url = "http://api.liveperson.net/api/account/{account_id}/service/{service_name}/baseURI.json"  # noqa
