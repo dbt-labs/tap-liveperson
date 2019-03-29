@@ -61,6 +61,12 @@
             "string"
           ]
         },
+        "chatMCS": {
+          "type": [
+            "null",
+            "integer"
+          ]
+        },
         "chatRequestedTime": {
           "type": [
             "null",
@@ -327,6 +333,9 @@
               },
               "lineSeq": {
                 "type": ["null", "string"]
+              },
+              "json": {
+                "type": ["null", "string"]
               }
             }
           }
@@ -518,6 +527,12 @@
         "country": {
           "type": ["null", "string"]
         },
+        "countryCode": {
+          "type": ["null", "string"]
+        },
+        "browserType": {
+          "type": ["null", "string"]
+        },
         "state": {
           "type": ["null", "string"]
         },
@@ -623,6 +638,12 @@
                 "type": ["null", "string"]
               },
               "cartStatus": {
+                "type": ["null", "string"]
+              },
+              "purchase": {
+                "type": ["null", "string"]
+              },
+              "marketingCampaignInfo": {
                 "type": ["null", "string"]
               },
               "isAuthenticated": {

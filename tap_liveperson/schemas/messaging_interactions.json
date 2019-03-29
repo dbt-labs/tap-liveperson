@@ -15,8 +15,7 @@
           "type": ["null", "integer"]
         },
         "endTime": {
-          "type": ["null", "string"],
-          "format": "date-time"
+          "type": ["null", "string"]
         },
         "endTimeL": {
           "type": ["null", "integer"]
@@ -537,7 +536,19 @@
                   }
                 }
               },
+              "purchase": {
+                "type": ["null", "string"]
+              },
               "sdeType": {
+                "type": ["null", "string"]
+              },
+              "marketingCampaignInfo": {
+                "type": ["null", "string"]
+              },
+              "cartStatus": {
+                "type": ["null", "string"]
+              },
+              "serviceActivity": {
                 "type": ["null", "string"]
               },
               "serverTimeStamp": {

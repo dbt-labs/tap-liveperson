@@ -10,12 +10,12 @@ from tap_liveperson.streams.skills import SkillsStream
 from tap_liveperson.streams.users import UsersStream
 
 AVAILABLE_STREAMS = [
-    #AgentGroupsStream,
-    #AgentStatusStream,
-    #SkillsStream,
-    #UsersStream,
-    #EngagementHistoryStream,
-    #MessagingInteractionsStream,
+    AgentGroupsStream,
+    AgentStatusStream,
+    SkillsStream,
+    UsersStream,
+    EngagementHistoryStream,
+    MessagingInteractionsStream,
     AgentActivityStream
 ]
 
