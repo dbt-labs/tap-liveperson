@@ -612,40 +612,16 @@
           "items": {
             "type": "object",
             "properties": {
-              "customerInfo": {
-                "type": "object",
-                "properties": {
-                  "serverTimeStamp": {
-                    "type": ["null", "string"]
-                  },
-                  "customerInfo": {
-                    "type": "object",
-                    "properties": {
-                      "customerId": {
-                        "type": ["null", "string"]
-                      },
-                      "companyBranch": {
-                        "type": ["null", "string"]
-                      }
-                    }
-                  }
-                }
-              },
+              "customerInfo": {},
               "sdeType": {
                 "type": ["null", "string"]
               },
               "serverTimeStamp": {
                 "type": ["null", "string"]
               },
-              "cartStatus": {
-                "type": ["null", "string"]
-              },
-              "purchase": {
-                "type": ["null", "string"]
-              },
-              "marketingCampaignInfo": {
-                "type": ["null", "string"]
-              },
+              "cartStatus": {},
+              "purchase": {},
+              "marketingCampaignInfo": {},
               "isAuthenticated": {
                 "type": ["null", "string"]
               }

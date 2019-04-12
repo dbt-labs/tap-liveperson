@@ -517,40 +517,12 @@
           "items": {
             "type": "object",
             "properties": {
-              "customerInfo": {
-                "type": "object",
-                "properties": {
-                  "serverTimeStamp": {
-                    "type": ["null", "string"]
-                  },
-                  "customerInfo": {
-                    "type": "object",
-                    "properties": {
-                      "customerId": {
-                        "type": ["null", "string"]
-                      },
-                      "companyBranch": {
-                        "type": ["null", "string"]
-                      }
-                    }
-                  }
-                }
-              },
-              "purchase": {
-                "type": ["null", "string"]
-              },
-              "sdeType": {
-                "type": ["null", "string"]
-              },
-              "marketingCampaignInfo": {
-                "type": ["null", "string"]
-              },
-              "cartStatus": {
-                "type": ["null", "string"]
-              },
-              "serviceActivity": {
-                "type": ["null", "string"]
-              },
+              "customerInfo": {},
+              "purchase": {},
+              "sdeType": {},
+              "marketingCampaignInfo": {},
+              "cartStatus": {},
+              "serviceActivity": {},
               "serverTimeStamp": {
                 "type": ["null", "string"]
               }
