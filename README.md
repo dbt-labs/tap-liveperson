@@ -1,15 +1,20 @@
 # tap-liveperson
 
-Author: Connor McArthur (connor@fishtownanalytics.com)
+Author: Drew Banin (drew@fishtownanalytics.com)
 
 This is a [Singer](http://singer.io) tap that produces JSON-formatted data following the [Singer spec](https://github.com/singer-io/getting-started/blob/master/SPEC.md).
 
 It:
 
-- Generates a catalog of available data in Liveperson
+- Generates a catalog of available data in LivePerson
 - Extracts the following resources:
-  - [Engagement History](https://developers.liveperson.com/data-engagement-history-overview.html) ([source](../../blob/master/tap_liveperson/streams/engagement_history.py))
-  - [Messaging Interactions](https://developers.liveperson.com/data-messaging-interactions-overview.html) ([source](../../blob/master/tap_liveperson/streams/messaging_interactions.py))
+  - [Engagement History](https://developers.liveperson.com/data-engagement-history-overview.html)
+  - [Messaging Interactions](https://developers.liveperson.com/data-messaging-interactions-overview.html)
+  - [Agent Groups](https://developers.liveperson.com/agent-groups-api-methods-get-all-agent-groups.html)
+  - [Skills](https://developers.liveperson.com/skills-api-methods-get-all-skills.html)
+  - [Users](https://developers.liveperson.com/users-api-methods-get-all-users.html)
+  - [Agent Activity](https://developers.liveperson.com/data-access-api-methods-agent-activity.html)
+  - [Queue Health](https://developers.liveperson.com/operational-realtime-api-methods-queue-health.html)
 
 ### Quick Start
 
@@ -23,7 +28,7 @@ pip install .
 
 2. Get credentials from Liveperson. You'll need to:
 
-- create an OAuth appo
+- create an OAuth app
 - get the app key, app secret, client ID, and client secret. Save these -- you'll need them in the next step.
 
 3. Create the config file.
@@ -43,7 +48,7 @@ Step 4 a file called `catalog.json` that specifies all the available endpoints a
 6. Run it!
 
 ```bash
-tap-liveperson -c config.json --properties catalog.json
+tap-liveperson -c config.json --catalog catalog.json
 ```
 
-Copyright &copy; 2018 Fishtown Analytics
+Copyright &copy; 2019 Fishtown Analytics
