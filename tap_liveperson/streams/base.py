@@ -237,3 +237,30 @@ class BaseFileStream(BaseStream):
                                  date.isoformat())
 
         save_state(self.state)
+
+
+class RealtimeStream(BaseStream):
+    def sync_data(self):
+        table = self.TABLE
+
+        domain = self.get_domain()
+        params = self.get_params()
+
+        LOGGER.info("Syncing realtime stream {} with params {}".format(table, params))
+
+        url = 'https://{domain}{api_path}'.format(domain=domain, api_path=self.api_path)
+
+        result = self.client.make_request(
+            url, self.API_METHOD, params=params)
+
+        data = self.get_stream_data(result)
+
+        with singer.metrics.record_counter(endpoint=table) as counter:
+            for obj in data:
+                singer.write_records(
+                    table,
+                    [obj])
+
+                counter.increment()
+
+        return self.state

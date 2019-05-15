@@ -3,6 +3,8 @@ from tap_liveperson.streams.messaging_interactions \
     import MessagingInteractionsStream
 from tap_liveperson.streams.agent_activity \
     import AgentActivityStream
+from tap_liveperson.streams.queue_health \
+    import QueueHealthStream
 
 from tap_liveperson.streams.agent_groups import AgentGroupsStream
 from tap_liveperson.streams.agent_status import AgentStatusStream
@@ -16,7 +18,8 @@ AVAILABLE_STREAMS = [
     UsersStream,
     EngagementHistoryStream,
     MessagingInteractionsStream,
-    AgentActivityStream
+    AgentActivityStream,
+    QueueHealthStream
 ]
 
 __all__ = [
@@ -27,4 +30,5 @@ __all__ = [
     'EngagementHistoryStream',
     'MessagingInteractionsStream',
     'AgentActivityStream',
+    'QueueHealthStream',
 ]
