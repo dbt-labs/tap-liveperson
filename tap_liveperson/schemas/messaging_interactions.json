@@ -15,8 +15,7 @@
           "type": ["null", "integer"]
         },
         "endTime": {
-          "type": ["null", "string"],
-          "format": "date-time"
+          "type": ["null", "string"]
         },
         "endTimeL": {
           "type": ["null", "integer"]
@@ -518,28 +517,12 @@
           "items": {
             "type": "object",
             "properties": {
-              "customerInfo": {
-                "type": "object",
-                "properties": {
-                  "serverTimeStamp": {
-                    "type": ["null", "string"]
-                  },
-                  "customerInfo": {
-                    "type": "object",
-                    "properties": {
-                      "customerId": {
-                        "type": ["null", "string"]
-                      },
-                      "companyBranch": {
-                        "type": ["null", "string"]
-                      }
-                    }
-                  }
-                }
-              },
-              "sdeType": {
-                "type": ["null", "string"]
-              },
+              "customerInfo": {},
+              "purchase": {},
+              "sdeType": {},
+              "marketingCampaignInfo": {},
+              "cartStatus": {},
+              "serviceActivity": {},
               "serverTimeStamp": {
                 "type": ["null", "string"]
               }
