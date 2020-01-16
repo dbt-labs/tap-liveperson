@@ -6,10 +6,16 @@ class MessagingInteractionsStream(BaseStream):
     SERVICE_NAME = 'msgHist'
     TABLE = 'messaging_interactions'
 
+    CONTENT_TO_RETRIEVE = ['campaign', 'messageRecords', 'agentParticipants',
+            'agentParticipantsLeave', 'agentParticipantsActive',
+            'consumerParticipants', 'transfers', 'interactions',
+            'messageScores', 'messageStatuses', 'conversationSurveys',
+            'coBrowseSessions', 'summary', 'sdes', 'unAuthSdes', 'monitoring']
+
     @property
     def api_path(self):
         return (
-            '/messaging_history/api/account/{}/conversations/search'
+            '/messaging_history/api/account/{}/conversations/search?v=2'
             .format(self.config.get('account_id')))
 
     def get_stream_data(self, result):

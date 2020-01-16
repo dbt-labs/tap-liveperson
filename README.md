@@ -15,6 +15,8 @@ It:
   - [Users](https://developers.liveperson.com/users-api-methods-get-all-users.html)
   - [Agent Activity](https://developers.liveperson.com/data-access-api-methods-agent-activity.html)
   - [Queue Health](https://developers.liveperson.com/operational-realtime-api-methods-queue-health.html)
+  - [Messaging Queue Health](https://developers.liveperson.com/messaging-operations-api-methods-messaging-queue-health.html)
+  - [Agent Activity](https://developers.liveperson.com/operational-realtime-api-methods-agent-activity.html)
 
 ### Quick Start
 

@@ -541,6 +541,68 @@
           "type": ["null", "integer"]
         }
       }
+    },
+    "monitoring": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": ["null", "string"]
+        },
+        "countryCode": {
+          "type": ["null", "string"]
+        },
+        "state": {
+          "type": ["null", "string"]
+        },
+        "city": {
+          "type": ["null", "string"]
+        },
+        "isp": {
+          "type": ["null", "string"]
+        },
+        "org": {
+          "type": ["null", "string"]
+        },
+        "device": {
+          "type": ["null", "string"]
+        },
+        "ipAddress": {
+          "type": ["null", "string"]
+        },
+        "browser": {
+          "type": ["null", "string"]
+        },
+        "operatingSystem": {
+          "type": ["null", "string"]
+        },
+        "conversationStartPage": {
+          "type": ["null", "string"]
+        },
+        "conversationStartPageTitle": {
+          "type": ["null", "string"]
+        }
+      }
+    },
+    "unAuthSdes": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "purchase": {},
+              "cartStatus": {},
+              "customerInfo": {},
+              "personalInfo": {},
+              "sdeType": {},
+              "serverTimeStamp": {
+                "type": ["null", "integer"]
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
