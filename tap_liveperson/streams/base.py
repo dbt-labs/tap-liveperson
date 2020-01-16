@@ -54,9 +54,10 @@ class BaseStream(base):
         }
 
     def get_content_to_retrieve(self):
-        if self.CONTENT_TO_RETRIEVE:
-          return {"contentToRetrieve": self.CONTENT_TO_RETRIEVE}
-        return {}
+        try:
+            return {"contentToRetrieve": self.CONTENT_TO_RETRIEVE}
+        except:
+            return {}
 
     def get_filters(self, start, end):
         return {
