@@ -4,6 +4,8 @@ import singer
 import singer.utils
 import singer.metrics
 
+from singer import Transformer
+
 from datetime import timedelta, datetime
 
 from tap_liveperson.config import get_config_start_date
@@ -84,26 +86,30 @@ class BaseStream(base):
         offset = 0
         total_pages = -1
 
-        while has_data:
-            url = (
-                'https://{domain}{api_path}'.format(
-                    domain=domain,
-                    api_path=self.api_path))
+        stream_schema = self.catalog.schema.to_dict()
+        stream_metadata = singer.metadata.to_map(self.catalog.metadata)
+        with Transformer() as transformer, singer.metrics.record_counter(endpoint=table) as counter:
+            while has_data:
+                url = (
+                    'https://{domain}{api_path}'.format(
+                        domain=domain,
+                        api_path=self.api_path))
 
-            params = self.get_pagination(page)
-            body = self.get_filters(updated_after, updated_before)
-            body.update(self.get_content_to_retrieve())
+                params = self.get_pagination(page)
+                body = self.get_filters(updated_after, updated_before)
+                body.update(self.get_content_to_retrieve())
 
-            result = self.client.make_request(
-                url, self.API_METHOD, params=params, body=body)
+                result = self.client.make_request(
+                    url, self.API_METHOD, params=params, body=body)
 
-            count = result.get('_metadata', {}).get('count')
+                count = result.get('_metadata', {}).get('count')
 
-            total_pages = math.ceil(count / params['limit'])
-            data = self.get_stream_data(result)
+                total_pages = math.ceil(count / params['limit'])
+                data = self.get_stream_data(result)
 
-            with singer.metrics.record_counter(endpoint=table) as counter:
+
                 for obj in data:
+                    obj = transformer.transform(obj, stream_schema, stream_metadata)
                     singer.write_records(
                         table,
                         [obj])
@@ -115,14 +121,14 @@ class BaseStream(base):
                                              'updated_at',
                                              obj.get('updated_at'))
 
-            if count == 0 or page == total_pages:
-                LOGGER.info('Reached end of stream, moving on.')
-                has_data = False
+                if count == 0 or page == total_pages:
+                    LOGGER.info('Reached end of stream, moving on.')
+                    has_data = False
 
-            else:
-                LOGGER.info('Synced page {} of {}'.format(page, total_pages))
+                else:
+                    LOGGER.info('Synced page {} of {}'.format(page, total_pages))
 
-            page = page + 1
+                page = page + 1
 
         self.state = incorporate(self.state,
                                  table,

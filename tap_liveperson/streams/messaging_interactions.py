@@ -19,15 +19,12 @@ class MessagingInteractionsStream(BaseStream):
             .format(self.config.get('account_id')))
 
     def get_stream_data(self, result):
-        transformed = [
-            self.transform_record(record)
-            for record in result.get('conversationHistoryRecords')
-        ]
+        recs = [record for record in result.get('conversationHistoryRecords')]
 
-        for record in transformed:
+        for record in recs:
             record['id'] = self.get_pk_value(record)
 
-        return transformed
+        return recs
 
     def get_pk_value(self, obj):
         return obj.get('info').get('conversationId')
