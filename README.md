@@ -1,3 +1,7 @@
+# This repo is no longer actively maintained
+
+This repository is no longer actively maintained. The dbt Labs team will no longer be accepting pull requests or responding to issues on this repo. If you would like to take over maintenance of this repo, please open an issue indicating so. The previous maintainers of the repo will be happy to help transfer over ownership to a good home :) 
+
 # tap-liveperson
 
 Author: Drew Banin (drew@fishtownanalytics.com)
